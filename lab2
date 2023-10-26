@@ -1,31 +1,35 @@
-def decimal_to_binary(decimal_number):
-    return bin(decimal_number)[2:]
-
-def decimal_to_decimal(decimal_number):
-    return str(decimal_number)
-
-def decimal_to_hexadecimal(decimal_number):
-    return hex(decimal_number)[2:]
+def input_number_in_base():
+    base = input("В якій системі числення ви хочете ввести число (2, 10 або 16): ")
+    if base not in ["2", "10", "16"]:
+        print("Невірний вибір системи числення для введеного числа. Оберіть один з варіантів: 2, 10 або 16.")
+        return None
+    number = input(f"Введіть ціле число у системі числення з основою {base}: ")
+    return (base, number)
 
 def main():
     try:
-        decimal_number = int(input("Введіть десяткове число: "))
-        base = input("Оберіть систему числення (2, 10 або 16): ")
+        input_data = input_number_in_base()
+        if input_data is None:
+            return
+
+        input_base, decimal_number = input_data
+
+        base = input("Оберіть систему числення для конвертації (2, 10 або 16): ")
 
         if base == "2":
-            result = decimal_to_binary(decimal_number)
+            result = bin(int(decimal_number, int(input_base)))[2:]
         elif base == "10":
-            result = decimal_to_decimal(decimal_number)
+            result = str(int(decimal_number, int(input_base)))
         elif base == "16":
-            result = decimal_to_hexadecimal(decimal_number)
+            result = hex(int(decimal_number, int(input_base)))[2:]
         else:
-            print("Невірний вибір системи числення. Оберіть один з варіантів: 2, 10 або 16.")
+            print("Невірний вибір системи числення для конвертації. Оберіть один з варіантів: 2, 10 або 16.")
             return
 
         print(f"{decimal_number} у системі числення з основою {base} дорівнює {result}")
 
     except ValueError:
-        print("Будь ласка, введіть ціле число у десятковій системі числення.")
+        print("Будь ласка, введіть правильне число в обраній системі числення.")
 
 if __name__ == "__main__":
     main()
